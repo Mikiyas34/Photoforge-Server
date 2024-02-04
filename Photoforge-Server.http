@@ -1,0 +1,6 @@
+@Photoforge_Server_HostAddress = http://localhost:5274
+
+GET {{Photoforge_Server_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
