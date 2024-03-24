@@ -18,6 +18,7 @@ namespace Photoforge_Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Send([FromForm] MailRequest request)
         {
+            
             return Ok();
         }
 
