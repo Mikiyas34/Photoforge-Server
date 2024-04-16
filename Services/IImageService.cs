@@ -8,7 +8,9 @@ public interface IImageService
 {
     void MergeImages(IFormFile[] images);
 
+    void BlurImage(Image image);
 
+    void Brightness(Image image);
 }
 
 

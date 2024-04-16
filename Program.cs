@@ -1,9 +1,13 @@
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Photoforge_Server;
 using Photoforge_Server.Data;
 using Photoforge_Server.Services;
+using Serilog;
 
+Log.Logger = new LoggerConfiguration().
+    WriteTo.Console().CreateLogger();
+
+Log.Information("Starting web application");
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,11 +16,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<PhotoforgeDbContext>(o => o.UseSqlServer(Config.DbConnectionString()));
+
+builder.Services.AddDbContext<PhotoforgeDbContext>(options => options.UseSqlServer(Config.DbConnectionString()).LogTo(Console.WriteLine, LogLevel.Information));
+
+
 builder.Services.AddTransient<IImageService, ImageService>();
 builder.Services.AddTransient<IMailService, MailService>();
-var mailConfig = builder.Configuration.GetSection("MailSettings");
-builder.Services.AddSingleton(mailConfig);
+
+builder.Services.AddTransient<IFileSystemService, FileSystemService>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -30,6 +39,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
+
 app.UseCors(p =>
 {
     p.AllowAnyHeader();
@@ -37,6 +47,7 @@ app.UseCors(p =>
     p.WithOrigins("http://localhost:4200");
     p.Build();
 });
+
 app.MapControllers();
 
 app.Run();

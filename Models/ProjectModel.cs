@@ -8,4 +8,14 @@ public class ProjectModel
     public string Name { get; set; }
     public DateTime CreatedAt { get; set; }
     public DateTime ModifyedAt { get; set; }
+  
+
+    public ProjectModel(string Name)
+    {
+        Id = Guid.NewGuid();
+        this.Name = Name;
+        CreatedAt = DateTime.Now;
+        ModifyedAt = DateTime.Now;  
+    }
+
 }
