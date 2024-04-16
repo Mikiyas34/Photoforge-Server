@@ -1,24 +1,31 @@
 namespace Photoforge_Server.Services;
-using System.Text;
 using Microsoft.AspNetCore.Http;
-using System.Buffers.Binary;
-using Newtonsoft.Json;
-using System.Drawing.Imaging;
 using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using System.Drawing.Imaging;
 
 public class ImageService : IImageService
 {
-    public ImageService() {
-        var json = new { Name = "bob", Age = 19};
 
-        var jsonStr = JsonConvert.SerializeObject(json);
-        var binaryData = Encoding.UTF8.GetBytes(jsonStr);
+    public Image CreateImage(int width, int height, Color? background)
+    {
+        Image<Rgba32> image = new(width, height);
+
+
+        if (background != null)
+        {
+            image.Mutate(ctx => ctx.BackgroundColor(background.Value));
+
+        }
+        return image;
+
 
     }
 
     public void BlurImage(Image image)
     {
-        
+
         throw new NotImplementedException();
     }
 
@@ -28,13 +35,13 @@ public class ImageService : IImageService
     }
 
     public void MergeImages(IFormFile[] images)
-    {     
+    {
         throw new NotImplementedException();
     }
 
     public void QucikExport(ImageFormat format)
     {
-        
+
     }
 }
 
