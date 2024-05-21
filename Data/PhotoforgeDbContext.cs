@@ -6,5 +6,9 @@ namespace Photoforge_Server.Data;
 public class PhotoforgeDbContext : DbContext
 {
     public PhotoforgeDbContext(DbContextOptions<PhotoforgeDbContext> options) : base(options) { }
-    public DbSet<ProjectModel> Projects;
+
+    public DbSet<ProjectModel> Projects { get; set; }
+    public DbSet<Layer> Layers { get; set; }
+
+
 }

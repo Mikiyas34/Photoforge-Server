@@ -1,4 +1,6 @@
-﻿namespace Photoforge_Server.Services;
+﻿using Photoforge_Server.Services;
+
+namespace Photoforge_Server.Layers;
 
 class PixelLayer
 {
@@ -9,7 +11,7 @@ class PixelLayer
     public double Y { get; set; }
     public double Width { get; set; }
     public double Height { get; set; }
-    public Filter[] filters { get; set; }
+    
 }
 
 
