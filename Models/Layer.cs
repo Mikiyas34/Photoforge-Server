@@ -1,9 +1,11 @@
-﻿namespace Photoforge_Server.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Photoforge_Server.Models;
 
 public class Layer
 {
+    [Key]
     public Guid Id { get; set; }
-    public Guid ProjectId { get; set; }
     public string Name { get; set; }
     public string StroredImageName { get; set; }
     public string Url { get; set; }
@@ -11,6 +13,7 @@ public class Layer
     public int Y { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
+   
 
     public float Brightness { get; set; }
     public float Contrast { get; set; }
@@ -18,6 +21,8 @@ public class Layer
     public float Lightness { get; set; }
     public float Hue { get; set; }
 
+    public Guid ProjectId { get; set; }
+    public virtual Project Project { get; set; }
 
     public Layer(string Name,Guid ProjectId, string Url)
     {
@@ -27,4 +32,6 @@ public class Layer
         this.ProjectId = ProjectId;
     }
 }
+
+public enum LayerType { Pixel, Shape, Type}
 
