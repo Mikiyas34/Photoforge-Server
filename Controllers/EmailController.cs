@@ -8,7 +8,6 @@ namespace Photoforge_Server.Controllers
     [Route("email")]
     public class EmailController : Controller
     {
-
         private readonly IMailService _mailService;
 
         public EmailController(IMailService mailService)
@@ -18,7 +17,6 @@ namespace Photoforge_Server.Controllers
         [HttpPost]
         public async Task<IActionResult> Send([FromForm] MailRequest request)
         {
-            
             return Ok();
         }
 
